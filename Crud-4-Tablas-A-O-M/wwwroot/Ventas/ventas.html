@@ -1,10 +1,145 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+    <title>CRUD de Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input, button {
+            margin: 5px;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
+
+    <h1>Gestión de Ventas</h1>
+
+    <form id="venta-form">
+        <input type="hidden" id="venta-id">
+        <label>Fecha: <input type="date" id="fecha" required></label>
+        <label>Total: <input type="number" id="total" step="0.01" required></label>
+        <label>Cliente ID: <input type="number" id="clienteId" required></label>
+        <button type="submit">Guardar Venta</button>
+        <button type="button" onclick="resetForm()">Cancelar</button>
+    </form>
+
+    <h2>Lista de Ventas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Cliente ID</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="ventas-tbody">
+            <!-- Filas dinámicas -->
+        </tbody>
+    </table>
+
+    <script>
+        const apiUrl = "http://localhost:5193/api/ventas"; // Asegúrate de usar tu puerto correcto
+
+        document.addEventListener("DOMContentLoaded", loadVentas);
+        document.getElementById("venta-form").addEventListener("submit", handleSubmit);
+
+        async function loadVentas() {
+            const res = await fetch(apiUrl);
+            const ventas = await res.json();
+
+            const tbody = document.getElementById("ventas-tbody");
+            tbody.innerHTML = "";
+
+            ventas.forEach(v => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${v.ventaId}</td>
+                    <td>${v.fecha.split('T')[0]}</td>
+                    <td>${v.total.toFixed(2)}</td>
+                    <td>${v.clienteId}</td>
+                    <td>
+                        <button onclick='editVenta(${JSON.stringify(v)})'>Editar</button>
+                        <button onclick='deleteVenta(${v.ventaId})'>Eliminar</button>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            const id = document.getElementById("venta-id").value;
+            const fecha = document.getElementById("fecha").value;
+            const total = parseFloat(document.getElementById("total").value);
+            const clienteId = parseInt(document.getElementById("clienteId").value);
+
+            const data = { fecha, total, clienteId };
+
+            if (id) {
+                // PUT
+                await fetch(`${apiUrl}/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+            } else {
+                // POST
+                await fetch(apiUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+            }
+
+            resetForm();
+            loadVentas();
+        }
+
+        function editVenta(venta) {
+            document.getElementById("venta-id").value = venta.ventaId;
+            document.getElementById("fecha").value = venta.fecha.split('T')[0];
+            document.getElementById("total").value = venta.total;
+            document.getElementById("clienteId").value = venta.clienteId;
+        }
+
+        async function deleteVenta(id) {
+            if (!confirm("¿Estás seguro de eliminar esta venta?")) return;
+
+            await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
+            loadVentas();
+        }
+
+        function resetForm() {
+            document.getElementById("venta-form").reset();
+            document.getElementById("venta-id").value = "";
+        }
+    </script>
 
 </body>
 </html>
