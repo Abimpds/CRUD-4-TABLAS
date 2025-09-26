@@ -1,3 +1,4 @@
+# Este gitignore era para excluir archivos innecesarios del GITHUB
 # Compilados y carpetas de build
 bin/
 obj/
