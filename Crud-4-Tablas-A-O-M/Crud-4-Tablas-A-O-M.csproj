@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="wwwroot\Clientes\" />
+    <Folder Include="wwwroot\DetalleVentas\" />
   </ItemGroup>
 
 </Project>

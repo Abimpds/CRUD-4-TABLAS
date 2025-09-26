@@ -2,85 +2,121 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Clientes</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin: 8px 0 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #0056b3;
+            }
+
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        .actions button {
+            margin: 0 3px;
+        }
+
+        .actions .edit {
+            background: #28a745;
+        }
+
+        .actions .delete {
+            background: #dc3545;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Gestión de Clientes</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="Clientes/clientes.html" class="activo">Clientes</a></li>
-                    <li><a href="Productos/productos.html">Productos</a></li>
-                    <li><a href="Ventas/ventas.html">Ventas</a></li>
-                    <li><a href="Detalles/detalleventas.html">Detalle Ventas</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <h1>Gestión de Clientes</h1>
 
-    <main class="contenido-pagina">
-        <section class="formulario">
-            <h2>Agregar Cliente</h2>
-            <form id="formCliente" action="/agregarCliente" method="POST">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre del cliente" required>
+    <div class="form-container">
+        <h2 id="form-title">Crear Cliente</h2>
+        <form id="clienteForm">
+            <input type="hidden" id="clienteId">
 
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" placeholder="Dirección del cliente" required>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" required>
 
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del cliente" required>
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" required>
 
-                <button type="submit">Guardar Cliente</button>
-            </form>
-        </section>
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" required>
 
-        <section class="tabla-clientes">
-            <h2>Lista de Clientes</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Clientes renderizados dinámicamente -->
-                    <tr>
-                        <td>1</td>
-                        <td>Juan Pérez</td>
-                        <td>Calle Falsa 123</td>
-                        <td>123-456-7890</td>
-                        <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Laura Gómez</td>
-                        <td>Avenida Siempre Viva 456</td>
-                        <td>987-654-3210</td>
-                        <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
-                        </td>
-                    </tr>
-                    <!-- Más filas aquí -->
-                </tbody>
-            </table>
-        </section>
-    </main>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
 
-    <footer>
-        <p>© 2025 Travelix</p>
-    </footer>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="clientesTable"></tbody>
+    </table>
+
+    <script src="clientes.js"></script>
 </body>
 </html>
