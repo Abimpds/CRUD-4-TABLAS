@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Crud_4_Tablas_A_O_M.Models;
-namespace CRUD.ModelsCrud_4_Tablas_A_O_M.Data
+namespace Crud_4_Tablas_A_O_M.Data
 {
     public class AppDbContext : DbContext
     {
