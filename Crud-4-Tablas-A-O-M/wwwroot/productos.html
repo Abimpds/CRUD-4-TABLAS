@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Gestión de Productos</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="clientes.html">Clientes</a></li>
+                    <li><a href="productos.html" class="activo">Productos</a></li>
+                    <li><a href="ventas.html">Ventas</a></li>
+                    <li><a href="detalleventas.html">Detalle Ventas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenido-pagina">
+        <section class="formulario">
+            <h2>Agregar Producto</h2>
+            <form id="formProducto" action="/agregarProducto" method="POST">
+                <label for="nombre">Nombre del producto:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: Laptop Dell" required>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" placeholder="Detalles del producto..." required></textarea>
+
+                <label for="precio">Precio:</label>
+                <input type="number" step="0.01" id="precio" name="precio" placeholder="Ej: 1200.50" required>
+
+                <label for="stock">Cantidad en stock:</label>
+                <input type="number" id="stock" name="stock" placeholder="Ej: 15" required>
+
+                <button type="submit">Guardar Producto</button>
+            </form>
+        </section>
+
+        <section class="tabla-productos">
+            <h2>Lista de Productos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ejemplo de datos -->
+                    <tr>
+                        <td>1</td>
+                        <td>Laptop Dell Inspiron</td>
+                        <td>Intel i5, 8GB RAM, 512GB SSD</td>
+                        <td>$850.00</td>
+                        <td>10</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Mouse Inalámbrico</td>
+                        <td>Conexión Bluetooth, batería recargable</td>
+                        <td>$25.00</td>
+                        <td>50</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                    <!-- Más filas aquí -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Travelix</p>
+    </footer>
+</body>
+</html>
