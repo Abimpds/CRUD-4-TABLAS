@@ -8,7 +8,7 @@ namespace Crud_4_Tablas_A_O_M.Models
         public int VentaId { get; set; }
         public required Venta Venta { get; set; }
         public int ProductoId { get; set; }
-        public required Producto Producto { get; set; }
+        public Producto Producto { get; set; } = null!;
         public int Cantidad { get; set; }
 
         // Especificar el tipo de columna con precisión y escala

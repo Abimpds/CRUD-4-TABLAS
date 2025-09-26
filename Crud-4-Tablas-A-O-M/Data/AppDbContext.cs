@@ -6,7 +6,7 @@ namespace Crud_4_Tablas_A_O_M.Data
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<DetalleVenta> DetallesVentas { get; set; }
+        public DbSet<DetalleVenta> DetalleVentas { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Venta> Ventas { get; set; }
     }
