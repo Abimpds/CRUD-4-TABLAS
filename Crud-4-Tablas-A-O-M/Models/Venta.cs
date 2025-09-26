@@ -9,8 +9,8 @@ namespace Crud_4_Tablas_A_O_M.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Total { get; set; }
         public int ClienteId { get; set; }
-        public required Cliente Cliente { get; set; }
-        // public required ICollection<DetalleVenta> Detalles { get; set; } 
-        public required List<DetalleVenta> DetalleVentas { get; set; } // Relación con DetalleVenta
+        public Cliente? Cliente { get; set; } // ❓ permite null
+        public List<DetalleVenta> DetalleVentas { get; set; } = new(); // ✅ inicialización por defecto
+
     }
 }
