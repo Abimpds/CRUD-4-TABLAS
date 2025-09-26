@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Gestión de Clientes</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="clientes.html" class="activo">Clientes</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="ventas.html">Ventas</a></li>
+                    <li><a href="detalleventas.html">Detalle Ventas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenido-pagina">
+        <section class="formulario">
+            <h2>Agregar Cliente</h2>
+            <form id="formCliente" action="/agregarCliente" method="POST">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del cliente" required>
+
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Dirección del cliente" required>
+
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del cliente" required>
+
+                <button type="submit">Guardar Cliente</button>
+            </form>
+        </section>
+
+        <section class="tabla-clientes">
+            <h2>Lista de Clientes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Clientes renderizados dinámicamente -->
+                    <tr>
+                        <td>1</td>
+                        <td>Juan Pérez</td>
+                        <td>Calle Falsa 123</td>
+                        <td>123-456-7890</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Laura Gómez</td>
+                        <td>Avenida Siempre Viva 456</td>
+                        <td>987-654-3210</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                    <!-- Más filas aquí -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Travelix</p>
+    </footer>
+</body>
+</html>
