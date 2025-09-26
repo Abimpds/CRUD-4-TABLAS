@@ -1,4 +1,4 @@
-﻿using ModelsCrud_4_Tablas_A_O_M.Data;
+﻿using Crud_4_Tablas_A_O_M.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
