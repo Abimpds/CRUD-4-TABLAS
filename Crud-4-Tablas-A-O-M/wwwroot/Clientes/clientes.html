@@ -3,38 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f9;
             margin: 0;
+            padding: 0;
+        }
+
+        /* Encabezado */
+        header {
+            background: #007bff;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+            header .container {
+                width: 90%;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            header h1 {
+                margin: 0;
+            }
+
+            header nav ul {
+                list-style: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+            }
+
+                header nav ul li {
+                    margin-left: 20px;
+                }
+
+                    header nav ul li a {
+                        color: white;
+                        text-decoration: none;
+                        font-weight: bold;
+                    }
+
+                        header nav ul li a.activo,
+                        header nav ul li a:hover {
+                            text-decoration: underline;
+                        }
+
+        /* Contenido */
+        main {
             padding: 20px;
         }
 
-        h1 {
-            text-align: center;
-        }
-
-        .form-container {
+        .formulario,
+        .tabla-productos {
             background: #fff;
             padding: 20px;
             border-radius: 10px;
-            max-width: 500px;
+            max-width: 800px;
             margin: 20px auto;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        /* Formulario */
         label {
             display: block;
             margin: 8px 0 5px;
             font-weight: bold;
         }
 
-        input {
+        input, textarea {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            resize: vertical;
         }
 
         button {
@@ -51,12 +103,12 @@
                 background: #0056b3;
             }
 
+        /* Tabla */
         table {
-            width: 90%;
-            margin: 30px auto;
+            width: 100%;
+            margin-top: 20px;
             border-collapse: collapse;
             background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         th, td {
@@ -70,60 +122,88 @@
             color: white;
         }
 
-        .actions button {
-            margin: 0 3px;
-        }
-
-        .actions .edit {
+        /* Botones de acciones */
+        button.editar {
             background: #28a745;
         }
 
-        .actions .delete {
+            button.editar:hover {
+                background: #1e7e34;
+            }
+
+        button.eliminar {
             background: #dc3545;
+        }
+
+            button.eliminar:hover {
+                background: #a71d2a;
+            }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            background: #f4f6f9;
+            color: #555;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/index.html">Inicio</a></li>
-            <li><a href="/Productos/productos.html">Productos</a></li>
-            <li><a href="/DetalleVentas/detalle-ventas.html">Detalle-Ventas</a></li>
-            <li><a href="/Ventas/ventas.html">Ventas</a></li>
-        </ul>
-    </nav>
-    <h1>Gestión de Clientes</h1>
+    <header>
+        <div class="container">
+            <h1>Gestión de Clientes</h1>
+            <nav>
+                <ul>
+                    <li><a href="/index.html">Inicio</a></li>
+                    <li><a href="../Productos/productos.html">Productos</a></li>
+                    <li><a href="../DetalleVentas/detalle-ventas.html">Detalle-Ventas</a></li>
+                    <li><a href="../Ventas/ventas.html">Ventas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <div class="form-container">
-        <h2 id="form-title">Crear Cliente</h2>
-        <form id="clienteForm">
-            <input type="hidden" id="clienteId">
+    <main>
+        <section class="formulario">
+            <h2 id="form-title">Crear Cliente</h2>
+            <form id="clienteForm">
+                <input type="hidden" id="clienteId">
 
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" required>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" required>
 
-            <label for="direccion">Dirección</label>
-            <input type="text" id="direccion" required>
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" required>
 
-            <label for="telefono">Teléfono</label>
-            <input type="text" id="telefono" required>
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" required>
 
-            <button type="submit">Guardar</button>
-        </form>
-    </div>
+                <button type="submit">Guardar</button>
+            </form>
+        </section>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Teléfono</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="clientesTable"></tbody>
-    </table>
+        <section class="tabla-productos">
+            <h2>Lista de Clientes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="clientesTable"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Travelix</p>
+    </footer>
 
     <script src="clientes.js"></script>
 </body>

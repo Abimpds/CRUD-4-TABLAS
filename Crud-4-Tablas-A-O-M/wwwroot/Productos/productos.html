@@ -5,6 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Encabezado */
+        header {
+            background: #007bff;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+            header .container {
+                width: 90%;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            header h1 {
+                margin: 0;
+            }
+
+            header nav ul {
+                list-style: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+            }
+
+                header nav ul li {
+                    margin-left: 20px;
+                }
+
+                    header nav ul li a {
+                        color: white;
+                        text-decoration: none;
+                        font-weight: bold;
+                    }
+
+                        header nav ul li a.activo,
+                        header nav ul li a:hover {
+                            text-decoration: underline;
+                        }
+
+        /* Contenido */
+        main {
+            padding: 20px;
+        }
+
+        .formulario,
+        .tabla-productos {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        /* Formulario */
+        label {
+            display: block;
+            margin: 8px 0 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #0056b3;
+            }
+
+        /* Tabla */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Botones de acciones */
+        button.editar {
+            background: #28a745;
+        }
+
+            button.editar:hover {
+                background: #1e7e34;
+            }
+
+        button.eliminar {
+            background: #dc3545;
+        }
+
+            button.eliminar:hover {
+                background: #a71d2a;
+            }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            background: #f4f6f9;
+            color: #555;
+            border-top: 1px solid #ddd;
+        }
+
+    </style>
 </head>
 <body>
     <header>
@@ -12,11 +158,10 @@
             <h1>Gestión de Productos</h1>
             <nav>
                 <ul>
-                    <li><a href="/index.html">Inicio</a></li>
-                    <li><a href="Clientes/clientes.html" class="activo">Clientes</a></li>
-                    <li><a href="Productos/productos.html">Productos</a></li>
-                    <li><a href="Ventas/ventas.html">Ventas</a></li>
-                    <li><a href="Detalles/detalleventas.html">Detalle Ventas</a></li>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../Clientes/clientes.html" class="activo">Clientes</a></li>
+                    <li><a href="../Ventas/ventas.html">Ventas</a></li>
+                    <li><a href="../Detalles/detalleventas.html">Detalle Ventas</a></li>
                 </ul>
             </nav>
         </div>
@@ -42,46 +187,8 @@
             </form>
         </section>
 
+        <h2>Lista de Productos</h2>
         <section class="tabla-productos">
-            <h2>Lista de Productos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Ejemplo de datos -->
-                    <tr>
-                        <td>1</td>
-                        <td>Laptop Dell Inspiron</td>
-                        <td>Intel i5, 8GB RAM, 512GB SSD</td>
-                        <td>$850.00</td>
-                        <td>10</td>
-                        <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Mouse Inalámbrico</td>
-                        <td>Conexión Bluetooth, batería recargable</td>
-                        <td>$25.00</td>
-                        <td>50</td>
-                        <td>
-                            <button class="editar">Editar</button>
-                            <button class="eliminar">Eliminar</button>
-                        </td>
-                    </tr>
-                    <!-- Más filas aquí -->
-                </tbody>
-            </table>
         </section>
     </main>
 
