@@ -64,15 +64,20 @@ namespace Crud_4_Tablas_A_O_M.Controllers
         [HttpPost]
         public async Task<ActionResult<DetalleVentaReadDto>> CreateDetalleVenta([FromBody] DetalleVentaCreateDto dto)
         {
-            // Opcional: validar existencia de Venta y Producto
+            // Validar que la Venta y el Producto existen
+            var ventaExiste = await _context.Ventas.AnyAsync(v => v.VentaId == dto.VentaId);
+            var productoExiste = await _context.Productos.AnyAsync(p => p.ProductoId == dto.ProductoId);
+
+            if (!ventaExiste) return BadRequest("Venta no existe");
+            if (!productoExiste) return BadRequest("Producto no existe");
+
             var detalle = new DetalleVenta
             {
                 VentaId = dto.VentaId,
                 ProductoId = dto.ProductoId,
                 Cantidad = dto.Cantidad,
-                Subtotal = dto.Subtotal,
-                Venta = new Venta(), // ⚠️ requerido por el modelo, pero puedes ignorar si haces nullable
-                Producto = new Producto()
+                Subtotal = dto.Subtotal
+                // ❌ No instanciar Producto ni Venta
             };
 
             _context.DetalleVentas.Add(detalle);

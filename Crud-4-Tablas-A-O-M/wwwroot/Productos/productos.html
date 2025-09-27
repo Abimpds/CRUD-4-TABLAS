@@ -159,9 +159,9 @@
             <nav>
                 <ul>
                     <li><a href="../index.html">Inicio</a></li>
-                    <li><a href="../Clientes/clientes.html" class="activo">Clientes</a></li>
+                    <li><a href="../Clientes/clientes.html">Clientes</a></li>
                     <li><a href="../Ventas/ventas.html">Ventas</a></li>
-                    <li><a href="../Detalles/detalleventas.html">Detalle Ventas</a></li>
+                    <li><a href="../DetalleVentas/detalle-ventas.html" class="activo">Detalle de ventas</a></li>
                 </ul>
             </nav>
         </div>
@@ -170,30 +170,120 @@
     <main class="contenido-pagina">
         <section class="formulario">
             <h2>Agregar Producto</h2>
-            <form id="formProducto" action="/agregarProducto" method="POST">
+            <form id="formProducto">
+                <input type="hidden" id="productoId">
                 <label for="nombre">Nombre del producto:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ej: Laptop Dell" required>
-
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" placeholder="Detalles del producto..." required></textarea>
+                <input type="text" id="nombre" placeholder="Ej: Laptop Dell" required>
 
                 <label for="precio">Precio:</label>
-                <input type="number" step="0.01" id="precio" name="precio" placeholder="Ej: 1200.50" required>
+                <input type="number" step="0.01" id="precio" placeholder="Ej: 1200.50" required>
 
                 <label for="stock">Cantidad en stock:</label>
-                <input type="number" id="stock" name="stock" placeholder="Ej: 15" required>
+                <input type="number" id="stock" placeholder="Ej: 15" required>
 
                 <button type="submit">Guardar Producto</button>
+                <button type="button" onclick="resetForm()">Cancelar</button>
             </form>
         </section>
 
         <h2>Lista de Productos</h2>
         <section class="tabla-productos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="productos-tbody">
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
         </section>
     </main>
 
     <footer>
         <p>© 2025 Travelix</p>
     </footer>
+
+    <script>
+        const apiUrl = "http://localhost:5193/api/productos"; // Ajusta tu puerto
+
+        document.addEventListener("DOMContentLoaded", loadProductos);
+        document.getElementById("formProducto").addEventListener("submit", handleSubmit);
+
+        async function loadProductos() {
+            const res = await fetch(apiUrl);
+            const productos = await res.json();
+
+            const tbody = document.getElementById("productos-tbody");
+            tbody.innerHTML = "";
+
+            productos.forEach(p => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${p.productoId}</td>
+                    <td>${p.nombre}</td>
+                    <td>${p.precio.toFixed(2)}</td>
+                    <td>${p.stock}</td>
+                    <td>
+                        <button class="editar" onclick='editProducto(${JSON.stringify(p)})'>Editar</button>
+                        <button class="eliminar" onclick='deleteProducto(${p.productoId})'>Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            const id = document.getElementById("productoId").value;
+            const nombre = document.getElementById("nombre").value;
+            const precio = parseFloat(document.getElementById("precio").value);
+            const stock = parseInt(document.getElementById("stock").value);
+
+            const data = { nombre, precio, stock };
+
+            if (id) {
+                await fetch(`${apiUrl}/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+            } else {
+                await fetch(apiUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+            }
+
+            resetForm();
+            loadProductos();
+        }
+
+        function editProducto(producto) {
+            document.getElementById("productoId").value = producto.productoId;
+            document.getElementById("nombre").value = producto.nombre;
+            document.getElementById("precio").value = producto.precio;
+            document.getElementById("stock").value = producto.stock;
+        }
+
+        async function deleteProducto(id) {
+            if (!confirm("¿Estás seguro de eliminar este producto?")) return;
+
+            await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
+            loadProductos();
+        }
+
+        function resetForm() {
+            document.getElementById("formProducto").reset();
+            document.getElementById("productoId").value = "";
+        }
+    </script>
 </body>
 </html>
