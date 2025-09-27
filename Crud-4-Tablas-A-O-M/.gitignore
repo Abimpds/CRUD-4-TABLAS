@@ -31,5 +31,3 @@ Release/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-
-**/Migrations/
